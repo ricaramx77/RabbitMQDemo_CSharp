@@ -1,0 +1,4 @@
+<Solution>
+  <Project Path="RabbitReceiver1/RabbitReceiver1.csproj" />
+  <Project Path="RabbitSender/RabbitSender.csproj" />
+</Solution>

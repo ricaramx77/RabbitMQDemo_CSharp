@@ -23,13 +23,10 @@ if (routingKey is null)
     throw new InvalidOperationException("RabbitMQ:RoutingKey is not configured.");
 
 
-// Declare the exchange
 await channel.ExchangeDeclareAsync(exchange: exchangeName, type: ExchangeType.Direct);
 
-// Declare the queue
 await channel.QueueDeclareAsync(queue: queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
 
-// Bind the queue to the exchange
 await channel.QueueBindAsync(queue: queueName, exchange: exchangeName, routingKey: routingKey);
 
 Console.WriteLine(" [*] Waiting for messages.");
@@ -44,7 +41,6 @@ consumer.ReceivedAsync += (model, ea) =>
     return Task.CompletedTask;
 };
 
-// Consume messages from the declared queue
 await channel.BasicConsumeAsync(queue: queueName, autoAck: true, consumer: consumer);
 
 Console.WriteLine(" Press [enter] to exit.");

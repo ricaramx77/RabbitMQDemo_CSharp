@@ -22,18 +22,14 @@ if (queueName is null)
 if (routingKey is null)
     throw new InvalidOperationException("RabbitMQ:RoutingKey is not configured.");
 
-// Declare the exchange
 await channel.ExchangeDeclareAsync(exchange: exchangeName, type: ExchangeType.Direct);
 
-// Declare the queue
 await channel.QueueDeclareAsync(queue: queueName, durable: false, exclusive: false, autoDelete: false, arguments: null);
 
-// Bind the queue to the exchange
 await channel.QueueBindAsync(queue: queueName, exchange: exchangeName, routingKey: routingKey);
 
 for(int i = 0; i <= 5; i++)
 {
-    // Publish a message
     const string message = "Hello World 2!";
     var body = Encoding.UTF8.GetBytes(message);
 
